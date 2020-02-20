@@ -1,17 +1,17 @@
 const express = require("express");
 const server = express();
+const Pool = require('pg').Pool;
+require('dotenv').config();
 
 server.use(express.static('assets'));
-
 server.use(express.urlencoded({extended: true}));
 
-const Pool = require('pg').Pool;
 const db = new Pool({
-    user: 'postgres',
-    password: '2048',
-    host: 'localhost',
-    port: '5432',
-    database: 'doe'
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 });
 
 const nunjucks = require("nunjucks");
